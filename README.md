@@ -2,6 +2,9 @@
 
 ## Backend del Sistema de Gestion de Restaurante - Proyecto De Desarrollo de APIs con Python
 
+### Integrantes:
+### José L. Chirinos y Yustin Chacón
+
 Para probar la aplicación clona este repositorio.
 
 Posteriormente, crea un ambiente virtual usando ```python -m venv venv``` y actívalo con el comando ```\venv\Scripts\activate```.
