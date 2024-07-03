@@ -11,6 +11,7 @@ from shared.utils.record_to_dict import record_to_dict
 from shared.utils.repositories_base import BaseRepository
 
 
+
 class DishRepository(BaseRepository):
     @property
     def _schema_out(self) -> Type[DishInDB]:
@@ -45,6 +46,8 @@ class DishRepository(BaseRepository):
         
         if not records:
             return None
+
+        records = await self.db.fetch_all(query=GET_DISHES_LIST)
         
         return [self._schema_out(**dict(record)) for record in records]
 

@@ -32,3 +32,6 @@ class OrderIn(OrderBase):
     date_created : datetime
     user_id : UUID
     status : str    
+
+class OrderUpdate(OrderBase):
+    pass

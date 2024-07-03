@@ -15,3 +15,10 @@ class OrderRepository(BaseRepository):
     def _schema_out(self) -> Type[OrderInDB]:
         return OrderInDB
     
+    @property
+    def _schema_int(self) -> Type[OrderIn]:
+        return OrderIn
+    
+
+    async def create_order(self, order: OrderIn) -> OrderInDB:        
+        pass
