@@ -14,7 +14,8 @@ from sqlalchemy import create_engine, engine_from_config, pool
 
 # we're appending the app directory to our path here so that we can import config easily
 # sys.path.append(str(pathlib.Path(__file__).resolve().parents[1]))
-from shared.core.db.db_base import metadata
+from sqlalchemy import MetaData
+from shared.core.db.db_base import Base
 from shared.core.config import DATABASE_URL, POSTGRES_DB  # noqa
 
 # this is the Alembic Config object, which provides
@@ -32,8 +33,8 @@ config.set_main_option("sqlalchemy.url", str(DATABASE_URL))
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-
-target_metadata = None
+#metadata = MetaData()
+target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:

@@ -10,13 +10,14 @@ from httpx import AsyncClient
 from icecream import ic
 from loguru import logger
 from pydantic import ValidationError
-from starlette.datastructures import Secret
 
-
-class TestIngredientsRoutes:
+class TestDishRoutes:
     async def test_routes_exists(
             self, app: FastAPI, client: AsyncClient
             )-> None:
         logger.info("Prueba logger")
-        res = await client.post(app.url_path_for("ingredients:create-ingredient"), json={})
+        res = await client.post(app.url_path_for("dishes:create-dish"), json={})
         assert res.status_code != status.HTTP_404_NOT_FOUND
+
+
+        
