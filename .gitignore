@@ -5,7 +5,7 @@
 __pycache__/
 
 # Environment files
-.env
+
 
 # Compiled Python bytecode
 *.py[cod]
@@ -55,5 +55,3 @@ temp_files/
 #Librerias de python
 backend/venv
 venv/*
-backend/alembic/versions/*
-backend/alembic/migrations/*
