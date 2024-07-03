@@ -12,6 +12,9 @@ from shared.utils.repositories_base import BaseRepository
 
 
 class IngredientRepository():
+    def __init__(self,db: Database):
+        self.db = db
+
     @property
     def _schema_out(self) -> Type[IngredientInDB]:
         return IngredientInDB
@@ -23,7 +26,7 @@ class IngredientRepository():
     async def create_ingredient(self, ingredient: IngredientBase)-> IngredientInDB:
         from modules.ingredients.ingredients_sqlstatements import CREATE_INGREDIENT_ITEM
 
-        values = self.preprocess_create(ingredient.dict())
+        values = self.preprocess_create(ingredient.model_dump())
 
         record = await self.db.fetch_one(query=CREATE_INGREDIENT_ITEM, values=values)
 
@@ -33,12 +36,12 @@ class IngredientRepository():
     
     async def get_ingredients_list(
             self,
-            search: str | None,
-            order: str | None,
-            direction: str | None
+            search: str | None = None,
+            order: str | None = None,
+            direction: str | None = None
     ) -> List[IngredientInDB]:
-        from modules.ingredients.ingredients_sqlstaments import GET_INGREDIENTS_LIST
-        records = await self.db.fetch_all()
+        from modules.ingredients.ingredients_sqlstatements import GET_INGREDIENTS_LIST
+        records = await self.db.fetch_all(query=GET_INGREDIENTS_LIST)
 
         if len(records) == 0:
             return[]
@@ -49,7 +52,7 @@ class IngredientRepository():
         return [self._schema_out(**dict(record)) for record in records]
 
     async def get_ingredient_by_id(self, id: UUID)-> IngredientInDB | dict:
-        from modules.ingredients.ingredients_sqlstaments import GET_INGREDIENT_BY_ID
+        from modules.ingredients.ingredients_sqlstatements import GET_INGREDIENT_BY_ID
 
         values = {"ingredient_id": id}
         record = await self.db.fetch_one(query=GET_INGREDIENT_BY_ID, values=values)
@@ -61,7 +64,7 @@ class IngredientRepository():
         return self._schema_out(**dish_in_db)
 
     async def update_Ingredient(self, id: UUID, ingredient_update: IngredientCreate)-> IngredientInDB:
-        from modules.ingredients.ingredients_sqlstaments import UPDATE_INGREDIENT_BY_ID
+        from modules.ingredients.ingredients_sqlstatements import UPDATE_INGREDIENT_BY_ID
 
         ingredient = await self.get_ingredient_by_id(id)
         if not ingredient:
