@@ -36,6 +36,7 @@ async def create_dish(dish: DishCreate = Body(...,embed=True),
     if not is_authorized(current_user, "dishes:create-dish"):
         return handle_result(ServiceResult(AuthExceptions.AuthUnauthorizedException()))
     
+    logger.info(f"Reibiendo objeto: {dish.name}")
     result = await DishService(db).create_dish(dish)
     return handle_result(result)
 

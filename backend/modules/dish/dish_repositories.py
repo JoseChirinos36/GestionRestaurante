@@ -11,7 +11,7 @@ from shared.utils.record_to_dict import record_to_dict
 from shared.utils.repositories_base import BaseRepository
 
 
-class DishRepository():
+class DishRepository(BaseRepository):
     @property
     def _schema_out(self) -> Type[DishInDB]:
         return DishInDB

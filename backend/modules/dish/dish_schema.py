@@ -6,26 +6,26 @@ from shared.utils.schemas_base import BaseSchema, DateTimeModelMixin, IDModelMix
 
 
 class DishBase(BaseSchema):
-    d_name = str
-    price = float
+    name : str | None
+    price : float
     
 class DishCreate(BaseSchema):
-    d_name = str
-    price = float
+    name : str
+    price : float
 
-class DishInDB(IDModelMixin):
-    dish_id = UUID
-    name = str
-    price = float
+class DishInDB(IDModelMixin, DateTimeModelMixin):
+    dish_id : UUID
+    name : str
+    price : float
 
 class DishIn(DishBase):
-    name = str
-    price = float
+    name : str
+    price : float
 
 class DishOut(IDModelMixin,BaseSchema):
-    name = str
-    price = float
+    name : str
+    price : float
 
 # class DishUpdate(DishBase):
-#     dish_name = str | None
-#     price = float
+#     dish_name : str | None
+#     price : float
