@@ -2,7 +2,7 @@ from uuid import UUID
 
 from shared.utils.schemas_base import BaseSchema, IDModelMixin
 
-class IngredientBase(BaseModel):
+class IngredientBase(BaseSchema):
     name: str
     amount: float
     unit: str

@@ -21,27 +21,16 @@ router = APIRouter(
     responses={404: {"description":"Not found"}},
 )
 
-@router.post("/",
-             response_model=IngredientBase,
-             name="ingredients:create-ingredient",
-             status_code=status.HTTP_201_CREATED,
-             )
-async def create_ingredient(ingredient: IngredientCreate = Body(...,embed=True),
-                      db: Database = Depends(get_database),
-                      current_user : UserInDB = Depends(get_current_active_user),
-                      ):
+@router.post("/", response_model=IngredientBase, name="ingredients:create-ingredient", status_code=status.HTTP_201_CREATED)
+async def create_ingredient(ingredient: IngredientCreate = Body(...,embed=True), db: Database = Depends(get_database), current_user : UserInDB = Depends(get_current_active_user)):
     if not is_authorized(current_user, "ingredients:create-ingredient"):
         return handle_result(ServiceResult(AuthExceptions.AuthUnauthorizedException()))
     
     result = await IngredientService(db).create_ingredient(ingredient)
     return handle_result(result)
 
-@router.get("/",
-            response_model=Dict,
-            name="ingredients:ingredients_list",status_code=status.HTTP_200_OK)
-async def get_ingredients_list(page_size: int = 10,
-                        db: Database = Depends(get_database), 
-                        current_user: UserInDB = Depends(get_current_active_user)):
+@router.get("/", response_model=Dict, name="ingredients:ingredients_list", status_code=status.HTTP_200_OK)
+async def get_ingredients_list(page_size: int = 10, db: Database = Depends(get_database), current_user: UserInDB = Depends(get_current_active_user)):
     if not is_authorized(current_user, "users:users_list"):
         return handle_result(ServiceResult(AuthExceptions.AuthUnauthorizedException()))
     
