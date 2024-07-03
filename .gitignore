@@ -54,6 +54,6 @@ temp_files/
 
 #Librerias de python
 backend/venv
-
+venv/*
 backend/alembic/versions/*
 backend/alembic/migrations/*

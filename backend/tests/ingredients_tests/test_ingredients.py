@@ -14,4 +14,9 @@ from starlette.datastructures import Secret
 
 
 class TestIngredientsRoutes:
-    pass
+    async def test_routes_exists(
+            self, app: FastAPI, client: AsyncClient
+            )-> None:
+        logger.info("Prueba logger")
+        res = await client.post(app.url_path_for("ingredients:create-ingredient"), json={})
+        assert res.status_code != status.HTTP_404_NOT_FOUND
